@@ -5,7 +5,9 @@ module BlackBrown
   class Client
     END_POINT = "https://api.line.me"
     PUSH_PATH = "/v2/bot/message/push"
-    attr_accessor :channel_access_token
+    REPLY_PATH = "/v2/bot/message/reply"
+
+    attr_accessor :channel_access_token, :channel_secret
 
     def initialize
       yield(self) if block_given?
@@ -20,6 +22,18 @@ module BlackBrown
         request.headers["User-Agent"] = "BlackBrown v#{BlackBrown::VERSION}"
         request.body = {
           to: user_id,
+          messages: parse_messages(messages)
+        }
+      end.success?
+    end
+
+    def reply(reply_token, messages)
+      http_client.post do |request|
+        request.url(REPLY_PATH)
+        request.headers["Authorization"] = "Bearer #{channel_access_token}"
+        request.headers["User-Agent"] = "BlackBrown v#{BlackBrown::VERSION}"
+        request.body = {
+          replyToken: reply_token,
           messages: parse_messages(messages)
         }
       end.success?

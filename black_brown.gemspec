@@ -8,7 +8,6 @@ Gem::Specification.new do |spec|
   spec.version       = BlackBrown::VERSION
   spec.authors       = ["katamoto_kosuke"]
   spec.email         = ["katamotokosuke0605@gmail.com"]
-
   spec.summary       = %q{line messegin api client .}
   spec.description   = %q{noting.}
   spec.homepage      = "https://github.com/katamotokosuke/black_brown"
@@ -35,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "faraday"
   spec.add_development_dependency "faraday_middleware"
+  spec.add_development_dependency "activesupport", "~> 4.2", ">= 4.2.6"
 end

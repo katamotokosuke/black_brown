@@ -28,11 +28,12 @@ module BlackBrown
 
     def profile(user_id)
       profile_path = PROFILE_PATH + "/" + user_id.to_s
-      http_client.get do |request|
+      response = http_client.get do |request|
         request.url(profile_path)
         request.headers["Authorization"] = "Bearer #{channel_access_token}"
         request.headers["User-Agent"] = "BlackBrown v#{BlackBrown::VERSION}"
       end
+      BlackBrown::ProfileResult.new(JSON.parse(response.body))
     end
 
     #user_id(require type: string): The id of the user you want to send to message

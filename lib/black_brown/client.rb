@@ -39,6 +39,7 @@ module BlackBrown
         request.headers["User-Agent"] = "BlackBrown v#{BlackBrown::VERSION}"
       end
       BlackBrown::ProfileResult.new(JSON.parse(response.body))
+    end
 
     def reply(reply_token, messages)
       http_client.post do |request|

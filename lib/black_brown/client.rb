@@ -10,15 +10,11 @@ module BlackBrown
     PROFILE_PATH = "/v2/bot/profile"
 
     attr_accessor :channel_access_token, :channel_secret
-    attr_accessor :channel_access_token
-
 
     def initialize
       yield(self) if block_given?
     end
 
-    #user_id(require type: string): The id of the user you want to send to message
-    #messages(requre: array or string): Contents of the message to be sent
     def push(user_id, messages)
       http_client.post do |request|
         request.url(PUSH_PATH)
@@ -30,6 +26,7 @@ module BlackBrown
         }
       end.success?
     end
+
 
     def profile(user_id)
       profile_path = PROFILE_PATH + "/" + user_id.to_s
@@ -85,15 +82,7 @@ module BlackBrown
     end
 
     def parse_messages(messages)
-      res = []
-      if messages.is_a?(Array)
-        messages.each do |item|
-          res << { type: "text", text: item }
-        end
-      else
-        res << { type: "text", text: messages.to_s }
-      end
-      res
+      return messages.kind_of?(Hash) ? messages : messages.get_hash
     end
   end
 end

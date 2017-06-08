@@ -81,9 +81,8 @@ module BlackBrown
       end
     end
 
-    #todo: hash and send message object within array
     def parse_messages(messages)
-      return messages.kind_of?(Hash) ? messages : messages.get_hash
+      return [messages] if messages.kind_of?(Hash)
     end
   end
 end

@@ -4,6 +4,6 @@ jobs:
     working_directory: ~/black_brown
     docker:
       - image: circleci/Ruby: 2.4.1
-  steps:
-    - checkout
-    - run: echo "hello world"
+    steps:
+      - checkout
+      - run: echo "hello world"
